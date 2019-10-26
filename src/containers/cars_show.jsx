@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCar } from '../actions/index';
+import { deleteCar } from '../actions/index';
 
 class CarsShow extends Component {
 
@@ -10,6 +11,17 @@ class CarsShow extends Component {
     if (!this.props.car) {
       this.props.fetchCar(this.props.match.params.id);
     }
+  }
+
+  handleClick = (id) => {
+    this.props.deleteCar(id, (car) => {
+      this.props.history.push('/'); // Navigate after submit
+      return car;
+    });
+  }
+
+  handleClick = () => {
+    this.props.deleteCar(this.props.history, this.props.car);
   }
 
   render() {
@@ -24,6 +36,7 @@ class CarsShow extends Component {
           <p>Owner: {this.props.car.owner}</p>
           <p>{this.props.car.plate}</p>
         </div>
+        <button className="btn btn-primary" onClick={this.handleClick}>Delete</button>
       </div>
     );
   }
@@ -36,8 +49,8 @@ function mapStateToProps(state, ownProps) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators({ fetchCar }, dispatch);
+  return bindActionCreators({ fetchCar, deleteCar }, dispatch);
 }
 
 
-export default connect(mapStateToProps, mapDispatchToProps)(CarsShow);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(CarsShow));
