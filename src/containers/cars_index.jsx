@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { fetchCars } from '../actions/index';
-import SideBar from './sidebar'
+import SideBar from './sidebar';
 
 
 class CarsIndex extends Component {
@@ -17,9 +17,12 @@ class CarsIndex extends Component {
     return this.props.cars.map((car) => {
       return (
         <Link to={`/cars/${car.id}`} key={car.id}>
-          <div className="car-item">
-            <h3>{car.brand} - {car.model}</h3>
-            <p>Owner: {car.owner}</p>
+          <div className="card-product">
+            <img src="https://source.unsplash.com/random/600x600?car" alt='' />
+            <div className="card-product-infos">
+              <h2>{car.brand} - {car.model}</h2>
+              <p>Owner: {car.owner}</p>
+            </div>
           </div>
         </Link>
       );

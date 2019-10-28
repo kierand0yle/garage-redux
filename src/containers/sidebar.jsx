@@ -5,19 +5,33 @@ import { connect } from 'react-redux';
 
 class SideBar extends Component {
 
+  firstLetter = (word) => {
+    return word.charAt(0);
+  }
+
+
   render() {
     return (
       <div className="sidebar">
+        <div className="sb-header">
+        </div>
+        <div className="sb-avatar-container">
+          <div className="sb-avatar">
+            <h1>{this.firstLetter(this.props.garage)}</h1>
+          </div>
+        </div>
         <div className="sidebar-content">
-          <h3>{this.props.garage} Garage</h3>
-          <p>Hey hey</p>
-          <Link className="btn btn-primary btn-cta" to="/cars/new">
+          <h3>{this.props.garage}'s Garage</h3>
+        </div>
+        <div className="sidebar-button">
+          <Link className="btn-flat" to="/cars/new">
           Add Car to Garage
           </Link>
         </div>
       </div>
     );
   }
+
 
 }
 
