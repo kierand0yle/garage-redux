@@ -4,6 +4,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { fetchCar } from '../actions/index';
 import { deleteCar } from '../actions/index';
+import SideBar from './sidebar';
+
 
 class CarsShow extends Component {
 
@@ -30,13 +32,14 @@ class CarsShow extends Component {
     }
 
     return (
-      <div>
-        <div className="car-item">
+      <div className="wrapper">
+      <SideBar />
+        <div className="main">
           <h3>{this.props.car.brand} - {this.props.car.model}</h3>
           <p>Owner: {this.props.car.owner}</p>
           <p>{this.props.car.plate}</p>
-        </div>
         <button className="btn btn-primary" onClick={this.handleClick}>Delete</button>
+        </div>
       </div>
     );
   }

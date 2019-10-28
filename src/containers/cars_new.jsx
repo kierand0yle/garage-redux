@@ -5,6 +5,22 @@ import { reduxForm, Field } from 'redux-form';
 
 import { createCar } from '../actions/index';
 
+import SideBar from './sidebar';
+
+const required = value => value ? undefined : 'Required';
+const upper = value => value && !/[A-Z]/.test(value) ?
+  'Plate must be uppercase' : undefined;
+
+const renderField = ({ input, label, type, meta: { touched, error, warning } }) => (
+  <div>
+    <div>
+      <input {...input} placeholder={label} type={type} className="form-control"/>
+      <div>
+        <p> {touched && ((error && <span> {error}</span>) || (warning && <span>{warning}</span>))}</p>
+      </div>
+    </div>
+  </div>
+);
 
 class CarsNew extends Component {
 
@@ -15,50 +31,60 @@ class CarsNew extends Component {
     });
   }
 
+
   render() {
     return (
-      <div>
-        <div className="first-row">
+      <div className="wrapper">
+        <SideBar />
+        <div className="main">
           <h3>Add New Car</h3>
-        </div>
-        <div>
           <form onSubmit={this.props.handleSubmit(this.onSubmit)}>
             <label htmlFor="Brand">Brand</label>
             <Field
               className="form-control"
-              label="brand"
+              label="Aston Martin"
               name="brand"
-              component="textarea"
-              rows="1"
+              component={renderField}
+              placeholder="Aston Martin"
+              validate={required}
             />
             <label htmlFor="model">Model</label>
             <Field
               className="form-control"
-              label="model"
+              label="DB Mark III"
               name="model"
-              component="textarea"
-              rows="1"
+              component={renderField}
+              placeholder="DB Mark III"
+              validate={required}
+
             />
             <label htmlFor="owner">Owner</label>
             <Field
               className="form-control"
-              label="owner"
+              label="James Bond"
               name="owner"
-              component="textarea"
-              rows="1"
+              component={renderField}
+              placeholder="James Bond"
+              validate={required}
+
             />
             <label htmlFor="plate">Plate</label>
             <Field
               className="form-control"
-              label="plate"
+              label="DB Mark III"
               name="plate"
-              component="textarea"
-              rows="1"
+              component={renderField}
+              placeholder="DB Mark III"
+              validate={upper}
             />
-            <button className="btn btn-primary" type="submit"
-              disabled={this.props.pristine || this.props.submitting}>
-           Create Car
-            </button>
+            <div className="mt-3">
+              <button
+                className="btn btn-primary"
+                type="submit"
+                disabled={this.props.pristine || this.props.submitting}>
+             Create Car
+              </button>
+            </div>
           </form>
         </div>
       </div>
