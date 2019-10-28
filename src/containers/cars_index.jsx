@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom';
 import { bindActionCreators } from 'redux';
 
 import { fetchCars } from '../actions/index';
+import SideBar from './sidebar'
 
 
 class CarsIndex extends Component {
@@ -27,14 +28,11 @@ class CarsIndex extends Component {
 
   render() {
     return (
-      <div>
-        <div className="first-row">
-          <h3>Garage</h3>
-          <Link className="btn btn-primary btn-cta" to="/cars/new">
-          Add Car to Garage
-          </Link>
+      <div className="wrapper">
+        <SideBar />
+        <div className="main">
+          {this.renderCars()}
         </div>
-        {this.renderCars()}
       </div>
     );
   }
